@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
-const socket = io('http://localhost:3010', {
+const socket = io('http://localhost:8181', {
       withCredentials: true,
 });
 
@@ -46,6 +46,14 @@ const ERP = (props) => {
             });
       }, [])
 
+      useEffect(() => {
+            // client listen event like feed
+            socket.on('test', (data) => {
+                  console.log('test', data);
+            });
+      }, [])
+
+
 
       const showListGroup = () => {
             let user_id = 461
@@ -66,42 +74,42 @@ const ERP = (props) => {
       // client emit join room
       const handleJoin = () => {
 
-            let id = 12
-            let name = 'id12'
+            let id = 1
+            let name = 'id 1'
             let avatar = 'https://pdp.edu.vn/wp-content/uploads/2021/01/hinh-anh-girl-xinh-toc-ngan-de-thuong.jpg'
-            let room = 'GC_smf0f_1704251356267'
+            let room = 'GC_w5KjT_1704961791560'
             socket.emit('join-room', {id, name, avatar, room});
       }
 
       const handleJoin2 = () => {
-            let id = 1
-            let name = 'id1'
+            let id = 7
+            let name = 'id 7'
             let avatar = 'https://pdp.edu.vn/wp-content/uploads/2021/01/hinh-anh-girl-xinh-toc-ngan-de-thuong.jpg'
-            let room = 'GC_smf0f_1704251356267'
+            let room = 'GC_iMvAq_1704808667917'
             socket.emit('join-room', {id, name, avatar, room});
       }
 
       // client emit send message
       const handleChat = () => {
-            let id = 12
-            let name = 'id12'
-            let avatar = 'https://fantick.kan-tek.com/storage/users/avatars/2021_12_19_21_42_51-61bfedab809d8.jpg'
-            let room = 'GC_smf0f_1704251356267'
-            let message = '12 test 1'
-            let type = 'text'
-            let thumbnail = null
-            socket.emit('send-message', {id, name, avatar, room, message, type, thumbnail});
-      }
-
-      const handleChat1 = () => {
             let id = 1
             let name = 'id1'
             let avatar = 'https://fantick.kan-tek.com/storage/users/avatars/2021_12_19_21_42_51-61bfedab809d8.jpg'
-            let room = 'GC_smf0f_1704251356267'
-            let message = '1 test 1'
+            let room = 'GC_w5KjT_1704961791560'
+            let message = '1 test'
             let type = 'text'
             let thumbnail = null
-            socket.emit('send-message', {id, name, avatar, room, message, type, thumbnail});
+            socket.emit('message', {id, name, avatar, room, message, type, thumbnail});
+      }
+
+      const handleChat1 = () => {
+            let id = 7
+            let name = 'id1'
+            let avatar = 'https://fantick.kan-tek.com/storage/users/avatars/2021_12_19_21_42_51-61bfedab809d8.jpg'
+            let room = 'GC_iMvAq_1704808667917'
+            let message = '7 test '
+            let type = 'text'
+            let thumbnail = null
+            socket.emit('message', {id, name, avatar, room, message, type, thumbnail});
       }
 
       // client emit typing message
